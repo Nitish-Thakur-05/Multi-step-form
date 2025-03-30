@@ -82,7 +82,7 @@ label span {
 
 .personal-info-container p, .plan-container p, .add-ons-container .service-info, .summary-container p, .message p {
     font-weight: 200;
-    color: hsl(228, 3%, 34%);
+    color: hsl(240, 4%, 22%);
     margin-bottom: 40px;
 }
 
