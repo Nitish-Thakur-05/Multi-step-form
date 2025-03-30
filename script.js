@@ -52,60 +52,60 @@ pageOneNextBtn.addEventListener("click", () => {
   const emailBox = document.querySelector(".email");
   const nameBox = document.querySelector(".name");
   const numberBox = document.querySelector(".number");
-  showingLoading()
-  setTimeout(() => {
-    const isAllInputFilled = Array.from(personalInfoPageInputBox).every(
-      (input) => {
-        return input.value.trim() !== "";
-      }
-    );
-  
-    if (isAllInputFilled) {
-      let isValid = true;
-  
-      if (/\d/.test(nameBox.value)) {
-        nameBox.style.border = "2px solid red";
-        isValid = false;
-      }
-      if (!emailBox.checkValidity()) {
-        emailBox.style.border = "2px solid red";
-        isValid = false;
-      }
-      if (numberBox.value.length !== 10) {
-        numberBox.style.border = "2px solid red";
-        isValid = false;
-      }
-  
-      if (isValid) {
-        switchingPage("formpage-2");
-      }
-    } else {
-      personalInfoPageInputBox.forEach((curr) => {
-        if (curr.value.trim() === "") {
-          curr.style.border = "2px solid red";
-        }
-        if (curr.value.trim() !== "") {
-          curr.removeAttribute("style");
-        }
-      });
+  const isAllInputFilled = Array.from(personalInfoPageInputBox).every(
+    (input) => {
+      return input.value.trim() !== "";
     }
-  }, 1000);
+  );
+
+  if (isAllInputFilled) {
+    let isValid = true;
+
+    if (/\d/.test(nameBox.value)) {
+      nameBox.style.border = "2px solid red";
+      isValid = false;
+    }
+    if (!emailBox.checkValidity()) {
+      emailBox.style.border = "2px solid red";
+      isValid = false;
+    }
+    if (numberBox.value.length !== 10) {
+      numberBox.style.border = "2px solid red";
+      isValid = false;
+    }
+
+    if (isValid) {
+      showingLoading()
+      setTimeout(() => {
+        switchingPage("formpage-2");
+      }, 1000);
+    }
+  } else {
+    personalInfoPageInputBox.forEach((curr) => {
+      if (curr.value.trim() === "") {
+        curr.style.border = "2px solid red";
+      }
+      if (curr.value.trim() !== "") {
+        curr.removeAttribute("style");
+      }
+    });
+  }
 });
 
 pageTwoNextBtn.addEventListener("click", () => {
-  showingLoading()
-  setTimeout(() => {
-    const isSelected = Array.from(planBox).some((curr) => {
-      return curr.classList.contains("selected-plan");
-    });
-    if (isSelected) {
+  const isSelected = Array.from(planBox).some((curr) => {
+    return curr.classList.contains("selected-plan");
+  });
+  if (isSelected) {
+    showingLoading()
+    setTimeout(() => {
       switchingPage("formpage-3");
-    } else {
-      planBox.forEach((curr) => {
-        curr.style.border = '2px solid red'
-      })
-    }
-  }, 1000);
+    }, 1000);
+  } else {
+    planBox.forEach((curr) => {
+      curr.style.border = '2px solid red'
+    })
+  }
 });
 pageThreeNextBtn.addEventListener("click", () => {
   showingLoading()
