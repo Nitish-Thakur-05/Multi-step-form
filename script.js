@@ -29,6 +29,7 @@ const page2BackBtn = document.querySelector(".page-2-back");
 const page3BackBtn = document.querySelector(".page-3-back");
 const page4BackBtn = document.querySelector(".page-4-back");
 const planBox = document.querySelectorAll(".plan");
+const loading = document.querySelector(".loading-container");
 const personalInfoPageInputBox = document.querySelectorAll(".personal-info-container input");
 
 
@@ -38,65 +39,86 @@ personalInfoPageInputBox.forEach((curr) => {
   });
 });
 
+function showingLoading() {
+  loading.classList.remove('d-none')
+  page1.classList.add("d-none");
+  page2.classList.add("d-none");
+  page3.classList.add("d-none");
+  page4.classList.add("d-none");
+  page5.classList.add("d-none");
+}
+
 pageOneNextBtn.addEventListener("click", () => {
   const emailBox = document.querySelector(".email");
   const nameBox = document.querySelector(".name");
   const numberBox = document.querySelector(".number");
-  const isAllInputFilled = Array.from(personalInfoPageInputBox).every(
-    (input) => {
-      return input.value.trim() !== "";
-    }
-  );
-
-  if (isAllInputFilled) {
-    let isValid = true;
-
-    if (/\d/.test(nameBox.value)) {
-      nameBox.style.border = "2px solid red";
-      isValid = false;
-    }
-    if (!emailBox.checkValidity()) {
-      emailBox.style.border = "2px solid red";
-      isValid = false;
-    }
-    if (numberBox.value.length !== 10) {
-      numberBox.style.border = "2px solid red";
-      isValid = false;
-    }
-
-    if (isValid) {
-      switchingPage("formpage-2");
-    }
-  } else {
-    personalInfoPageInputBox.forEach((curr) => {
-      if (curr.value.trim() === "") {
-        curr.style.border = "2px solid red";
+  showingLoading()
+  setTimeout(() => {
+    const isAllInputFilled = Array.from(personalInfoPageInputBox).every(
+      (input) => {
+        return input.value.trim() !== "";
       }
-      if (curr.value.trim() !== "") {
-        curr.removeAttribute("style");
+    );
+  
+    if (isAllInputFilled) {
+      let isValid = true;
+  
+      if (/\d/.test(nameBox.value)) {
+        nameBox.style.border = "2px solid red";
+        isValid = false;
       }
-    });
-  }
+      if (!emailBox.checkValidity()) {
+        emailBox.style.border = "2px solid red";
+        isValid = false;
+      }
+      if (numberBox.value.length !== 10) {
+        numberBox.style.border = "2px solid red";
+        isValid = false;
+      }
+  
+      if (isValid) {
+        switchingPage("formpage-2");
+      }
+    } else {
+      personalInfoPageInputBox.forEach((curr) => {
+        if (curr.value.trim() === "") {
+          curr.style.border = "2px solid red";
+        }
+        if (curr.value.trim() !== "") {
+          curr.removeAttribute("style");
+        }
+      });
+    }
+  }, 1000);
 });
 
 pageTwoNextBtn.addEventListener("click", () => {
-  const isSelected = Array.from(planBox).some((curr) => {
-    return curr.classList.contains("selected-plan");
-  });
-  if (isSelected) {
-    switchingPage("formpage-3");
-  } else {
-    planBox.forEach((curr) => {
-      curr.style.border = '2px solid red'
-    })
-  }
+  showingLoading()
+  setTimeout(() => {
+    const isSelected = Array.from(planBox).some((curr) => {
+      return curr.classList.contains("selected-plan");
+    });
+    if (isSelected) {
+      switchingPage("formpage-3");
+    } else {
+      planBox.forEach((curr) => {
+        curr.style.border = '2px solid red'
+      })
+    }
+  }, 1000);
 });
 pageThreeNextBtn.addEventListener("click", () => {
-  switchingPage("formpage-4");
-  generatingBill();
+  showingLoading()
+  setTimeout(() => {
+    switchingPage("formpage-4");
+    generatingBill();
+  }, 1000);
 });
 pageFourNextBtn.addEventListener("click", () => {
-  switchingPage("formpage-5");
+  showingLoading()
+  setTimeout(() => {
+    switchingPage("formpage-5");
+  }, 1000);
 });
 
 //back btn use
@@ -111,6 +133,7 @@ page4BackBtn.addEventListener("click", () => {
 });
 
 function switchingPage(page) {
+  loading.classList.add('d-none')
   page1.classList.add("d-none");
   page2.classList.add("d-none");
   page3.classList.add("d-none");
